@@ -1,0 +1,12 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  {% load static %}
+  <h1>Recording</h1>
+  <p id="text">{{ recording.text }}</p>
+  <button id="recordButton" type="button">Start</button>
+  <button id="stopButton" type="button">Stop</button>
+  <ol id="recordingsList"></ol>
+  <script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
+  <script src="{% static 'create_voice/record.js' %}"></script>
+{% endblock %}
