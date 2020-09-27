@@ -29,8 +29,9 @@ urlpatterns = [
     path('create_voice/index', cViews.IndexView.as_view(), name='create_voice/index'),
     path('create_voice/record', cViews.RecordView.as_view(), name='create_voice/record'),
     path('create_voice/record/prompt', cViews.PromptView.as_view(), name='create_voice/record/prompt'),
+    path('syntheisze/', include('synthesize.urls')),
     path('synthesize/index', sViews.get_text, name='synthesize/index'),
-    path('synthesize/output', sViews.output, name='synthesize/output'),
+    path('synthesize/output.html', sViews.output, name='synthesize/output'),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
