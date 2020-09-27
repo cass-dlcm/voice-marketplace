@@ -37,7 +37,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'create_voice.apps.CreateVoiceConfig',
-    'synthesize.apps.SynthesizeConfig'
+    'synthesize.apps.SynthesizeConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
