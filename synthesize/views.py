@@ -1,12 +1,15 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 from .forms import SpeechForm
 import yaml
 import requests
+import os
 
 text = "test"
 
 
+@login_required
 def get_text(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
@@ -27,6 +30,7 @@ def get_text(request):
     return render(request, 'synthesize/index.html', {'form': form})
 
 
+@login_required
 def output(request):
     headers = {
         'Ocp-Apim-Subscription-Key': yaml.load(open('secrets.yaml'), Loader=yaml.FullLoader)['Ocp-Apim-Subscription-Key'],
@@ -42,6 +46,7 @@ def output(request):
     data = '<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="http://www.w3.org/2001/mstts" xml:lang="en-US"><voice name="Cass">' + text + '</voice></speak>'
     response = requests.post(constructed_url, headers=headers, data=data)
     if response.status_code == 200:
+        os.remove('static/output.wav')
         with open('static/output.wav', 'wb') as audio:
             audio.write(response.content)
             print("\nStatus code: " + str(response.status_code) + "\nYour TTS is ready for playback.\n")

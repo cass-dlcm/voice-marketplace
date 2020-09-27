@@ -1,6 +1,7 @@
 //webkitURL is deprecated but nevertheless
 URL = window.URL || window.webkitURL;
 var gumStream;
+var text;
 //stream from getUserMedia()
 var rec;
 //Recorder.js object
@@ -17,6 +18,7 @@ recordButton.addEventListener("click", startRecording);
 stopButton.addEventListener("click", stopRecording);
 
 function startRecording() {
+  text = document.getElementById("text").innerHTML.slice();
   console.log("recordButton clicked");
   /* Simple constraints object, for more advanced audio features see
   https://addpipe.com/blog/audio-constraints-getusermedia/ */
@@ -70,19 +72,16 @@ function createDownloadLink(blob) {
     var au = document.createElement('audio');
     var li = document.createElement('li');
     var link = document.createElement('a');
-    var p = document.createElement('p');
-    p.innerHTML = document.getElementById("text").innerHTML;
     //add controls to the <audio> element
     au.controls = true;
     au.src = url;
     //link the a element to the blob
     link.href = url;
     link.download = new Date().toISOString() + '.wav';
-    link.innerHTML = link.download;
+    link.innerHTML = text;
     //add the new audio and a elements to the li element
     li.appendChild(au);
     li.appendChild(link);
-    li.appendChild(p);
     //add the li element to the ordered list
     recordingsList.appendChild(li);
 }
