@@ -102,6 +102,7 @@ function createDownloadLink(blob) {
         xhr.open("POST", "upload", true);
         xhr.setRequestHeader("X-CSRFToken", document.querySelector('[name=csrfmiddlewaretoken]').value);
         xhr.send(fd);
+        upload.innerHTML = "Uploaded"
     })
     li.appendChild(document.createTextNode(" ")) //add a space in between
     li.appendChild(upload) //add the upload link to li
