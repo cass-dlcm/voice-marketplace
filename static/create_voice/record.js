@@ -83,5 +83,27 @@ function createDownloadLink(blob) {
     li.appendChild(au);
     li.appendChild(link);
     //add the li element to the ordered list
+    var filename = new Date().toISOString();
+    //filename to send to server without extension
+    //upload link
+    var upload = document.createElement('a');
+    upload.href = "#";
+    upload.innerHTML = "Upload";
+    upload.addEventListener("click", function(event) {
+        var xhr = new XMLHttpRequest();
+        xhr.onload = function(e) {
+            if (this.readyState === 4) {
+                console.log("Server returned: ", e.target.responseText);
+            }
+        };
+        var fd = new FormData();
+        fd.append("audio_data", blob);
+        fd.append("text", text);
+        xhr.open("POST", "upload", true);
+        xhr.setRequestHeader("X-CSRFToken", document.querySelector('[name=csrfmiddlewaretoken]').value);
+        xhr.send(fd);
+    })
+    li.appendChild(document.createTextNode(" ")) //add a space in between
+    li.appendChild(upload) //add the upload link to li
     recordingsList.appendChild(li);
 }

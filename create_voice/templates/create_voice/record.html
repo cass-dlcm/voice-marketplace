@@ -3,7 +3,8 @@
 {% block content %}
   {% load static %}
   <h1>Recording</h1>
-  <p id="text">{{ recording.text }}</p>
+  {% csrf_token %}
+  <p id="text">{{ text }}</p>
   <button id="recordButton" type="button">Start</button>
   <button id="stopButton" type="button">Stop</button>
   <ol id="recordingsList"></ol>

@@ -6,5 +6,6 @@ urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
     path('<int:pk>/', views.DetailView.as_view(), name='detail'),
     path('record/', views.RecordView.as_view(), name='record'),
-    path('record/prompt/', views.PromptView.as_view(), name='record/prompt'),
+    path('prompt/', views.PromptView.as_view(), name='prompt'),
+    path('upload/', views.RecieveRecordingView.as_view(), name='upload')
 ]

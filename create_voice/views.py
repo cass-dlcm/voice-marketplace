@@ -1,9 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponse, HttpResponseBadRequest
 from django.utils import timezone
 from django.views import generic
 from .models import Recording
 import random
-from datetime import datetime
+from .forms import RecordingForm
+import os
+from pathlib import Path
 
 
 # Create your views here.
@@ -30,15 +33,12 @@ class DetailView(LoginRequiredMixin, generic.DetailView):
 
 class RecordView(LoginRequiredMixin, generic.ListView):
     model = Recording
-    recording = Recording()
-    recording.text = random.choice(open('clips.csv').read().splitlines())
-    recording.rec_date = timezone.now()
+    text = random.choice(open('clips.csv').read().splitlines())
     template_name = 'create_voice/record.html'
-    context_object_name = 'recording'
+    context_object_name = 'text'
 
     def get_queryset(self):
-        self.recording.user = self.request.user.username
-        return self.recording
+        return self.text
 
 
 class PromptView(generic.ListView):
@@ -47,3 +47,25 @@ class PromptView(generic.ListView):
 
     def get_queryset(self):
         return random.choice(open('clips.csv').read().splitlines())
+
+
+class RecieveRecordingView(generic.ListView):
+    model = Recording
+
+    def post(self, request):
+        form = RecordingForm(request.POST, request.FILES)
+        print(form)
+        if form.is_valid():
+            recording = Recording()
+            recording.text = form.cleaned_data['text']
+            recording.rec_date = timezone.now()
+            recording.voice_record = form.files['audio_data']
+            recording.user = request.user.username
+            recording.save()
+            if (not os.path.exists('media/' + recording.user)):
+                os.mkdir('media/' + recording.user)
+            os.rename(recording.voice_record.path, os.path.join(Path(__file__).resolve().parent.parent, 'media') + '\\' + recording.user + '\\' + str(recording.id) + '.wav')
+            recording.save()
+            return HttpResponse('Ok')
+        else:
+            return HttpResponseBadRequest('')
