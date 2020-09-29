@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-import yaml
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = yaml.load(open('secrets.yaml'), Loader=yaml.FullLoader)['SECRET_KEY']
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -82,7 +82,7 @@ DATABASES = {
         'ENGINE': 'sql_server.pyodbc',
         'NAME': 'voicemarketrecordings',
         'USER': 'cass@voice-market-sql.database.windows.net',
-        'PASSWORD': yaml.load(open('secrets.yaml'), Loader=yaml.FullLoader)['database_password'],
+        'PASSWORD': os.environ['database_password'],
         'HOST': 'voice-market-sql.database.windows.net',
         'PORT': '1433',
         'OPTIONS': {
