@@ -6,11 +6,15 @@ import uuid
 
 
 # Create your models here.
+def user_directory_path(instance, filename):
+    return 'user_{0}/{1}'.format(instance.user, Recording.objects.filter(text=instance).values('id')[0]['id'])
+
+
 class Recording(models.Model):
-    voice_record = models.FileField()
     text = models.CharField(max_length=200)
     user = models.CharField(max_length=200)
     rec_date = models.DateTimeField('date recorded')
+    voice_record = models.FileField(upload_to=user_directory_path)
 
     def __str__(self):
         return self.text

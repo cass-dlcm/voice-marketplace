@@ -3,6 +3,6 @@
 {% block content %}
     <h1>{{ recording.text }}</h1>
     <audio controls>
-      <source src="/media/{{ recording.voice_record }}" type="audio/wav">
+      <source src="{{ MEDIA_URL }}{{  recording.voice_record  }}" type="audio/wav">
     </audio>
 {% endblock %}
