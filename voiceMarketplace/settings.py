@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = yaml.load(open('secrets.yaml'), Loader=yaml.FullLoader)['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -79,12 +79,15 @@ WSGI_APPLICATION = 'voiceMarketplace.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'recordings',
-        'USER': 'django',
+        'ENGINE': 'sql_server.pyodbc',
+        'NAME': 'voicemarketrecordings',
+        'USER': 'cass@voice-market-sql.database.windows.net',
         'PASSWORD': yaml.load(open('secrets.yaml'), Loader=yaml.FullLoader)['database_password'],
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'HOST': 'voice-market-sql.database.windows.net',
+        'PORT': '1433',
+        'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+        },
     }
 }
 
