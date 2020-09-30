@@ -26,7 +26,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    'https://voice-marketplace.azurewebsites.net/',
+    'voice-marketplace.azurewebsites.net',
     'voicemarketplace.online'
 ]
 
