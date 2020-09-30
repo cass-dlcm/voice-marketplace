@@ -145,3 +145,4 @@ MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+ADMINS = [('Cass', 'cassandra.delacruzmunoz@gmail.com')]
