@@ -23,11 +23,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     'voice-marketplace.azurewebsites.net',
-    'voicemarketplace.online'
+    'voicemarketplace.online',
+    'localhost'
 ]
 
 
@@ -146,3 +147,4 @@ CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ADMINS = [('Cass', 'cassandra.delacruzmunoz@gmail.com')]
+SECURE_SSL_REDIRECT = True

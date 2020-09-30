@@ -1,0 +1,11 @@
+version: "3.8"
+services:
+    web:
+        build: .
+        ports:
+            - "8000:8000"
+        environment:
+            SECRET_KEY: ${SECRET_KEY}
+            database_password: ${database_password}
+            storage_account_key: ${storage_account_key}
+            Ocp_Apim_Subscription_Key: ${Ocp_Apim_Subscription_Key}
