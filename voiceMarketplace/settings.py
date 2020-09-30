@@ -25,7 +25,10 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    'https://voice-marketplace.azurewebsites.net/',
+    'voicemarketplace.online'
+]
 
 
 # Application definition
@@ -139,3 +142,5 @@ AZURE_ACCOUNT_NAME = "voicemarketrecordings"
 AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
 STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
 MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
