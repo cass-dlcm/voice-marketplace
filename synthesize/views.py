@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from .forms import SpeechForm
 import requests
+import yaml
 import os
 
 
@@ -17,7 +18,7 @@ def get_text(request):
             # process the data in form.cleaned_data as required
             text = form.cleaned_data['speech_text']
             headers = {
-                'Ocp-Apim-Subscription-Key': os.environ['Ocp_Apim_Subscription_Key'],
+                'Ocp-Apim-Subscription-Key': yaml.load(open('secrets.yaml', 'r'), Loader=yaml.FullLoader)['Ocp_Apim_Subscription_Key'],
             }
             access_token = str(requests.post('https://eastus.api.cognitive.microsoft.com/sts/v1.0/issuetoken', headers=headers).text)
             constructed_url = "https://eastus.voice.speech.microsoft.com/cognitiveservices/v1?deploymentId=0982d199-b2b3-4480-96c8-d11372f35c54"

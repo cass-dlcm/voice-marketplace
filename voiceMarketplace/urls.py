@@ -35,4 +35,5 @@ urlpatterns = [
     path('synthesize/output.html', sViews.output, name='synthesize/output'),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/register', views.register, name='accounts/register'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
