@@ -137,5 +137,4 @@ dmypy.json
 cython_debug/
 
 secrets.yaml
-media/
-static/output.wav
+stylesheets_output
