@@ -62,5 +62,4 @@ class RecieveRecordingView(generic.ListView):
             recording.user = request.user.username
             recording.save()
             return HttpResponse('Ok')
-        else:
-            return HttpResponseBadRequest('')
+        return HttpResponseBadRequest('')
