@@ -12,11 +12,6 @@ RUN apt-get update \
         && apt-get clean \
         && rm -rf /var/lib/apt/lists/*
 
-COPY Pipfile.txt /code/
-RUN pip install pipenv \
-        && pipenv install
-COPY . /code/
-
 # ssh
 ENV SSH_PASSWD "root:Docker!"
 RUN apt-get update \
@@ -24,6 +19,11 @@ RUN apt-get update \
 	&& echo "$SSH_PASSWD" | chpasswd \
         && apt-get clean \
         && rm -rf /var/lib/apt/lists/*
+
+COPY Pipfile /code/
+RUN pip install pipenv \
+        && pipenv install
+COPY . /code/
 
 COPY sshd_config /etc/ssh/
 COPY init.sh /usr/local/bin/

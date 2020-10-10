@@ -8,7 +8,7 @@ verify_ssl = true
 [packages]
 azure-storage-blob = "*"
 Django = "*"
-django-azure-sql-backend = "*"
+django-mssql-backend = "*"
 django-sendgrid-v5 = "*"
 django-storages = "*"
 gunicorn = "*"
@@ -16,4 +16,4 @@ PyYAML = "*"
 stripe = "*"
 
 [requires]
-python_version = "3.8.6"
+python_version = "3.7"
