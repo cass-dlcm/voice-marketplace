@@ -14,38 +14,32 @@
     <li><a href="{% url 'create_voice/record'%}">Record New</a></li>
   </ul>
   <ul id="synthesize_speech" class="dropdown-content">
-    <li><a href="#!">Clips</a></li>
+    <li><a href="{% url 'synthesize/index'%}">Clips</a></li>
     <li><a href="{% url 'synthesize/new'%}">Create New</a></li>
   </ul>
-  <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container">
+  <nav class="light-blue lighten-1">
+    <div class="nav-wrapper">
       <ul class="right hide-on-med-and-down">
         <li><a href="{% url 'index' %}">Home</a></li>
-        <li><a class="dropdown-trigger" href="#!" data-target="record_voice">Record Voice <i class="material-icons right">arrow_drop_down</i></a></li>
-        <li><a href="#!">Marketplace</a></li>
-        <li><a class="dropdown-trigger" href="#!" data-target="synthesize_speech">Synthesize Speech <i class="material-icons right">arrow_drop_down</i></a></li>
-        <li>User: {{ user.get_username }}</li>
-        <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
-      </ul>
-      <ul id="nav-mobile" class="sidenav">
-        <li><a href="{% url 'index' %}">Home</a></li>
-        <li><a class="dropdown-trigger" href="#!" data-target="record_voice">Record Voice <i class="material-icons right">arrow_drop_down</i></a></li>
-        <li><a href="#!">Marketplace</a></li>
-        <li><a class="dropdown-trigger" href="#!" data-target="synthesize_speech">Synthesize Speech <i class="material-icons right">arrow_drop_down</i></a></li>
+        <li><a class="dropdown-button" href="#" data-target="record_voice">Record Voice <i class="material-icons right">arrow_drop_down</i></a></li>
+        <li><a href="{% url 'marketplace/index' %}">Marketplace</a></li>
+        <li><a class="dropdown-button" href="#" data-target="synthesize_speech">Synthesize Speech <i class="material-icons right">arrow_drop_down</i></a></li>
         <li>User: {{ user.get_username }}</li>
         <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
       </ul>
       <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     </div>
   </nav>
-  <div class="row">
-    {% block sidebar %}
-      {% if user.is_authenticated %}
-        <div class="col s12 m4 l3">
-        </div>
-      {% endif %}
-    {% endblock %}
-    <div class="col s12 m8 l9">
+  <ul id="nav-mobile" class="sidenav">
+    <li><a href="{% url 'index' %}">Home</a></li>
+    <li><a class="dropdown-trigger" href="#" data-target="record_voice">Record Voice <i class="material-icons right">arrow_drop_down</i></a></li>
+    <li><a href="{% url 'marketplace/index' %}">Marketplace</a></li>
+    <li><a class="dropdown-trigger" href="#" data-target="synthesize_speech">Synthesize Speech <i class="material-icons right">arrow_drop_down</i></a></li>
+    <li>User: {{ user.get_username }}</li>
+    <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+  </ul>
+  <div class="container">
+    <div class="row">
       {% block content %}{% endblock %}
     </div>
   </div>

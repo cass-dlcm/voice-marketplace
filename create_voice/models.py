@@ -3,8 +3,8 @@ from django.conf import settings
 
 
 # Create your models here.
-def user_directory_path(instance):
-    return 'user_{0}/{1}'.format(instance.user, Recording.objects.filter(text=instance).values('id')[0]['id'])
+def user_directory_path(instance, filename):
+    return 'user_{0}/{1}'.format(instance.user_value, Recording.objects.filter(text=instance).values('id')[0]['id'])
 
 
 class Recording(models.Model):

@@ -21,8 +21,8 @@ RUN apt-get update \
         && rm -rf /var/lib/apt/lists/*
 
 COPY Pipfile /code/
-RUN pip install pipenv \
-        && pipenv install
+RUN pip install --upgrade pip && pip install pipenv
+RUN pipenv install
 COPY . /code/
 
 COPY sshd_config /etc/ssh/

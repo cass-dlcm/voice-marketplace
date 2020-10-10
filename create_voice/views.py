@@ -1,6 +1,8 @@
 import random
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse, HttpResponseBadRequest
+from django.shortcuts import render
 from django.utils import timezone
 from django.views import generic
 from .models import Recording
@@ -13,9 +15,7 @@ class IndexView(LoginRequiredMixin, generic.ListView):
     context_object_name = 'list_of_recordings'
 
     def get_queryset(self):
-        return Recording.objects.filter(
-            rec_date__lte=timezone.now()
-        ).filter(user_value=self.request.user).order_by('-rec_date')
+        return Recording.objects.filter(user_value=self.request.user).order_by('-rec_date')
 
 
 class DetailView(LoginRequiredMixin, generic.DetailView):
@@ -24,8 +24,7 @@ class DetailView(LoginRequiredMixin, generic.DetailView):
     context_object_name = 'recording'
 
     def get_queryset(self):
-        """ Excludes any questions that aren't published yet. """
-        return Recording.objects.filter(rec_date__lte=timezone.now()).filter(user_value=self.request.user)
+        return Recording.objects.filter(user_value=self.request.user)
 
 
 class RecordView(LoginRequiredMixin, generic.ListView):
@@ -56,9 +55,16 @@ class RecieveRecordingView(generic.ListView):
             recording = Recording()
             recording.text = form.cleaned_data['text']
             recording.rec_date = timezone.now()
+            recording.user_value = request.user
             recording.save()
             recording.voice_record = form.files['audio_data']
-            recording.user_value = request.user
             recording.save()
             return HttpResponse('Ok')
         return HttpResponseBadRequest('')
+
+
+@login_required
+def delete_recording(request, pk=None):
+    object = Recording.objects.get(id=pk)
+    object.delete()
+    return render(request, 'create_voice/index.html')

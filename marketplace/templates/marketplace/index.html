@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <div class="col s12 m6 push-m3">
+    {% for voice in list_of_voices %}
+        <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+                <span class="card-title">{{ voice.voice_model.name }}</span>
+                <p>Creator: {{ voice.voice_model.creator }}</p>
+                <audio controls>
+                    <source src="{{ MEDIA_URL }}{{  voice.sample_audio  }}" type="audio/wav">
+                </audio>
+                <p>Cost: {{ voice.cost }}</p>
+            </div>
+            <div class="card-action">
+                <button id="subscribe" class="waves-effect waves-light btn" type="button">Subscribe</button>
+            </div>
+        </div>
+    {% endfor %}
+  </div>
+{% endblock %}

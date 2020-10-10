@@ -6,8 +6,9 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-azure-storage-blob = "*"
-Django = "*"
+azure-common = "*"
+azure-storage-blob = "==2.1.0"
+Django = ">=3.0.10,<3.1.0"
 django-mssql-backend = "*"
 django-sendgrid-v5 = "*"
 django-storages = "*"

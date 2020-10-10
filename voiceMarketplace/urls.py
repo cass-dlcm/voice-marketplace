@@ -4,6 +4,7 @@ from django.conf import settings
 from django.urls import include, path
 import create_voice.views as cViews
 import synthesize.views as sViews
+import marketplace.views as mViews
 
 
 """voiceMarketplace URL Configuration
@@ -31,8 +32,11 @@ urlpatterns = [
     path('create_voice/prompt', cViews.PromptView.as_view(), name='create_voice/prompt'),
     path('create_voice/upload', cViews.RecieveRecordingView.as_view(), name='create_voice/upload'),
     path('syntheisze/', include('synthesize.urls')),
+    path('synthesize/index', sViews.IndexView.as_view(), name='synthesize/index'),
     path('synthesize/new', sViews.get_text, name='synthesize/new'),
-    path('synthesize/output', sViews.output, name='synthesize/output'),
+    path('synthesize/output', sViews.OutputView.as_view(), name='synthesize/output'),
+    path('marketplace/', include('marketplace.urls')),
+    path('marketplace/index', mViews.IndexView.as_view(), name='marketplace/index'),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/register', views.register, name='accounts/register'),

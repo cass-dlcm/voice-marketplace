@@ -35,6 +35,7 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'marketplace.apps.MarketplaceConfig',
     'create_voice.apps.CreateVoiceConfig',
     'synthesize.apps.SynthesizeConfig',
     'django.contrib.admin',

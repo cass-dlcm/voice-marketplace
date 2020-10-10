@@ -1,11 +1,32 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <form action="/synthesize/output" method="post">
-    {% csrf_token %}
-    <div class="input-field col s12">
-      {{ form }}
-    </div>
-    <input type="submit" value="Submit">
-  </form>
+<div class="col s12 m6 push-m3">
+  <div class="card medium blue-grey darken-1">
+    <form action="/synthesize/new" method="post">
+      {% csrf_token %}
+      <div class="card-content white-text">
+        <span class="card-title">Synthesize</span>
+        <div class="fieldWrapper">
+          {{ form.voice_model.errors }}
+          <lebel for="{{ form.voice_model.id_for_label }}">Voice model:</lebel>
+          <div class="input-field col s12">
+            {{ form.voice_model }}
+          </div>
+        </div>
+        <div class="fieldWrapper">
+          {{ form.speech_text.errors }}
+          <label for="{{ form.speech_text.id_for_label }}">Text to synthesize:</label>
+          <div class="input-field col s12">
+            {{ form.speech_text }}
+          </div>
+        </div>
+      </div>
+      <div class="card-action">
+        <input class="btn waves-effect waves-light" type="submit" value="Submit">
+      </div>
+    </form>
+  </div>
+</div>
+
 {% endblock %}

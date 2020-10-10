@@ -1,8 +1,18 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <h1>{{ recording.text }}</h1>
-    <audio controls>
-      <source src="{{ MEDIA_URL }}{{  recording.voice_record  }}" type="audio/wav">
-    </audio>
+  <div class="col s12 m6 push-m3">
+    <div class="card blue-grey darken-1">
+      <div class="card-content white-text">
+        <span class="card-title">{{ recording.text }}</span>
+        <br>
+        <audio controls>
+          <source src="{{ MEDIA_URL }}{{  recording.voice_record  }}" type="audio/wav">
+        </audio>
+      </div>
+      <div class="card-action">
+        <a href="{% url 'create_voice:detail' recording.id %}delete">Delete</a>
+      </div>
+    </div>
+  </div>
 {% endblock %}

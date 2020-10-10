@@ -2,12 +2,20 @@
 
 {% block content %}
   {% load static %}
-  <h1>Recording</h1>
-  {% csrf_token %}
-  <p id="text">{{ text }}</p>
-  <button id="recordButton" type="button">Start</button>
-  <button id="stopButton" type="button">Stop</button>
-  <ol id="recordingsList"></ol>
+  <div class="col s12 m6 push-m3">
+      <div class="card blue-grey darken-1">
+        <div class="card-content white-text">
+          <span class="card-title">Record</span>
+          {% csrf_token %}
+          <p id="text">{{ text }}</p>
+        </div>
+        <div class="card-action">
+          <button id="recordButton" class="waves-effect waves-light btn" type="button">Start</button>
+          <button id="stopButton" class="waves-effect waves-light btn" type="button">Stop</button>
+        </div>
+    </div>
+    <div id="recordingsList"></div>
+  </div>
   <script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
   <script src="{% static 'create_voice/record.js' %}"></script>
 {% endblock %}
