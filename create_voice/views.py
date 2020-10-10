@@ -24,9 +24,7 @@ class DetailView(LoginRequiredMixin, generic.DetailView):
     context_object_name = 'recording'
 
     def get_queryset(self):
-        """
-        Excludes any questions that aren't published yet.
-        """
+        """ Excludes any questions that aren't published yet. """
         return Recording.objects.filter(rec_date__lte=timezone.now()).filter(user_value=self.request.user)
 
 
