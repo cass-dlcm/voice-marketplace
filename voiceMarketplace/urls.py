@@ -1,7 +1,8 @@
-import create_voice.views as cViews
-import synthesize.views as sViews
+from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
+import create_voice.views as cViews
+import synthesize.views as sViews
 
 
 """voiceMarketplace URL Configuration
@@ -19,7 +20,6 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
 from django.urls import include, path
 from voiceMarketplace import views
 
@@ -31,8 +31,8 @@ urlpatterns = [
     path('create_voice/prompt', cViews.PromptView.as_view(), name='create_voice/prompt'),
     path('create_voice/upload', cViews.RecieveRecordingView.as_view(), name='create_voice/upload'),
     path('syntheisze/', include('synthesize.urls')),
-    path('synthesize/index', sViews.get_text, name='synthesize/index'),
-    path('synthesize/output.html', sViews.output, name='synthesize/output'),
+    path('synthesize/new', sViews.get_text, name='synthesize/new'),
+    path('synthesize/output', sViews.output, name='synthesize/output'),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/register', views.register, name='accounts/register'),

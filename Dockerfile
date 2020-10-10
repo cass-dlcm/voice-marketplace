@@ -8,16 +8,22 @@ RUN apt-get update \
         && curl https://packages.microsoft.com/config/debian/10/prod.list > /etc/apt/sources.list.d/mssql-release.list \
         && apt-get update \
         && ACCEPT_EULA=Y apt-get install msodbcsql17 mssql-tools -y \
-        && apt-get install gcc g++ python3.7-dev unixodbc-dev -y
+        && apt-get install gcc g++ python3.7-dev unixodbc-dev -y \
+        && apt-get clean \
+        && rm -rf /var/lib/apt/lists/*
 
-ADD requirements.txt /code/
-RUN pip install -r requirements.txt --no-cache-dir
-ADD . /code/
+COPY Pipfile.txt /code/
+RUN pip install pipenv \
+        && pipenv install
+COPY . /code/
 
 # ssh
 ENV SSH_PASSWD "root:Docker!"
-RUN apt-get install -y --no-install-recommends openssh-server \
-	&& echo "$SSH_PASSWD" | chpasswd
+RUN apt-get update \
+        && apt-get install -y --no-install-recommends openssh-server \
+	&& echo "$SSH_PASSWD" | chpasswd \
+        && apt-get clean \
+        && rm -rf /var/lib/apt/lists/*
 
 COPY sshd_config /etc/ssh/
 COPY init.sh /usr/local/bin/

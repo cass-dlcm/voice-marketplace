@@ -1,9 +1,11 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <form action="/synthesize/index" method="post">
+  <form action="/synthesize/output" method="post">
     {% csrf_token %}
-    {{ form }}
+    <div class="input-field col s12">
+      {{ form }}
+    </div>
     <input type="submit" value="Submit">
   </form>
 {% endblock %}

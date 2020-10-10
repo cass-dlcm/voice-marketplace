@@ -1,9 +1,9 @@
+import random
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.utils import timezone
 from django.views import generic
 from .models import Recording
-import random
 from .forms import RecordingForm
 
 
@@ -15,7 +15,7 @@ class IndexView(LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         return Recording.objects.filter(
             rec_date__lte=timezone.now()
-        ).filter(user=self.request.user.username).order_by('-rec_date')
+        ).filter(user_value=self.request.user).order_by('-rec_date')
 
 
 class DetailView(LoginRequiredMixin, generic.DetailView):
@@ -27,7 +27,7 @@ class DetailView(LoginRequiredMixin, generic.DetailView):
         """
         Excludes any questions that aren't published yet.
         """
-        return Recording.objects.filter(rec_date__lte=timezone.now()).filter(user=self.request.user.username)
+        return Recording.objects.filter(rec_date__lte=timezone.now()).filter(user_value=self.request.user)
 
 
 class RecordView(LoginRequiredMixin, generic.ListView):
@@ -60,7 +60,7 @@ class RecieveRecordingView(generic.ListView):
             recording.rec_date = timezone.now()
             recording.save()
             recording.voice_record = form.files['audio_data']
-            recording.user = request.user.username
+            recording.user_value = request.user
             recording.save()
             return HttpResponse('Ok')
         return HttpResponseBadRequest('')
