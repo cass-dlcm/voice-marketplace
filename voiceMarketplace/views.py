@@ -18,12 +18,11 @@ def register(request):
             user = form.save()
             login(request, user)
             return redirect("index")
-        else:
-            for msg in form.error_messages:
-                print(form.error_messages[msg])
-            return render(request=request,
-                          template_name="register.html",
-                          context={"form": form})
+        for msg in form.error_messages:
+            print(form.error_messages[msg])
+        return render(request=request,
+                      template_name="register.html",
+                      context={"form": form})
     form = UserCreationForm
     return render(request=request,
                   template_name="register.html",

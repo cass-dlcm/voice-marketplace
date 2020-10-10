@@ -51,7 +51,8 @@ class PromptView(generic.ListView):
 class RecieveRecordingView(generic.ListView):
     model = Recording
 
-    def post(self, request):
+    @staticmethod
+    def post(request):
         form = RecordingForm(request.POST, request.FILES)
         if form.is_valid():
             recording = Recording()
@@ -62,5 +63,4 @@ class RecieveRecordingView(generic.ListView):
             recording.user = request.user.username
             recording.save()
             return HttpResponse('Ok')
-        else:
-            return HttpResponseBadRequest('')
+        return HttpResponseBadRequest('')
