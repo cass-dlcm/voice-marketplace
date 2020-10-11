@@ -144,5 +144,9 @@ AZURE_ACCOUNT_NAME = "voicemarketrecordings"
 AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
 STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
 MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+SENDGRID_API_KEY = yaml.load(open('secrets.yaml', 'r'), Loader=yaml.FullLoader)['SENDGRID_API_KEY']
+EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 ADMINS = [('Cass', 'cassandra.delacruzmunoz@gmail.com')]
+SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+DEFAULT_FROM_EMAIL = "webmaster@voice-marketplace.online"
+SERVER_EMAIL = "root@voice-marketplace.online"
