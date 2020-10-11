@@ -23,12 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = yaml.load(open('/code/secrets.yaml', 'r'), Loader=yaml.FullLoader)['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     'voice-marketplace.azurewebsites.net',
     'voicemarketplace.online',
-    '127.0.0.1',
 ]
 
 
