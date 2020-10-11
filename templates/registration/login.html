@@ -1,47 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base_generic.html" %}
   {% load static %}
-  <head>
-    {% block title %}<title>Voice Marketplace</title>{% endblock %}
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'login_stylesheet.css' %}">
-  </head>
-  <body>
+{% block content %}
+  <div class="col s12 m6 push-m3">
     {% if form.errors %}
-      <p>Your username and password didn't match. Please try again.</p>
+      <div class="card blue-grey darken-1">
+        <div class="card-content white-text">
+          <span class="card-title">Your username and password didn't match. Please try again.</span>
+        </div>
+      </div>
     {% endif %}
-
     {% if next %}
-      {% if user.is_authenticated %}
-        <p>Your account doesn't have access to this page. To proceed,
-        please login with an account that has access.</p>
-      {% else %}
-        <p>Please login to see this page.</p>
-      {% endif %}
+      <div class="card blue-grey darken-1">
+        <div class="card-content white-text">
+          {% if user.is_authenticated %}
+            <span class="card-title">Your account doesn't have access to this page. To proceed, please login with an account that has access.</span>
+          {% else %}
+            <span class="card-title">Please login to see this page.</span>
+          {% endif %}
+        </div>
+      </div>
     {% endif %}
-    <div id="login_box">
-      <h1 id="login_header" class="link_medium">Login</h1>
+    <div class="card medium blue-grey darken-1">
       <form method="post" action="{% url 'login' %}">
-        {% csrf_token %}
-        <div id="login_username" class="input_background">
-          <div class="mail_icon_container">
-            <img src="{% static 'mail.png' %}">
+        <div class="card-content white-text">
+          <span class="card-title">Login</span>
+          {% csrf_token %}
+          <div class="fieldWrapper">
+            {{ form.username.errors }}
+            <lebel for="{{ form.username.id_for_label }}">Username:</lebel>
+            <div class="input-field col s12">
+              {{ form.username }}
+            </div>
           </div>
-          <div id="username_field">
-            <h1 id="email_text" class="text_extra_small">Email</h1>
-            {{ form.username }}
+          <div class="fieldWrapper">
+            {{ form.password.errors }}
+            <lebel for="{{ form.password.id_for_label }}">Password:</lebel>
+            <div class="input-field col s12">
+              {{ form.password }}
+            </div>
           </div>
-        </div>
-        <div id="login_password" class="input_background">
-          {{ form.password }}
-        </div>
-        <input type="submit" id="login_button" value="Login" />
-        <input type="hidden" name="next" value="{{ next }}" />
+          <input type="hidden" name="next" value="{{ next }}" />
       </form>
-      <p id="password_reset_link" class="link_medium"><a href="{% url 'password_reset' %}">Lost password?</a></p>
-      <p id="register_link" class="link_medium"><a href="{% url 'accounts/register' %}">Sign up</p>
+      <div class="card-action">
+        <input type="submit" id="login_button" class="waves-effect waves-light btn" value="Login" />
+        <br>
+        <a href="{% url 'password_reset' %}">Lost password?</a>
+        <a href="{% url 'accounts/register' %}">Sign up</a>
+      </div>
     </div>
-  </body>
-</html>
+  </div>
+{% endblock %}

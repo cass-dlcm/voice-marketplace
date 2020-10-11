@@ -24,8 +24,10 @@
         <li><a class="dropdown-button" href="#" data-target="record_voice">Record Voice <i class="material-icons right">arrow_drop_down</i></a></li>
         <li><a href="{% url 'marketplace/index' %}">Marketplace</a></li>
         <li><a class="dropdown-button" href="#" data-target="synthesize_speech">Synthesize Speech <i class="material-icons right">arrow_drop_down</i></a></li>
-        <li>User: {{ user.get_username }}</li>
-        <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+        {% if user.is_authenticated %}
+          <li>User: {{ user.get_username }}</li>
+          <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+        {% endif %}
       </ul>
       <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     </div>
@@ -35,8 +37,10 @@
     <li><a class="dropdown-trigger" href="#" data-target="record_voice">Record Voice <i class="material-icons right">arrow_drop_down</i></a></li>
     <li><a href="{% url 'marketplace/index' %}">Marketplace</a></li>
     <li><a class="dropdown-trigger" href="#" data-target="synthesize_speech">Synthesize Speech <i class="material-icons right">arrow_drop_down</i></a></li>
-    <li>User: {{ user.get_username }}</li>
-    <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+    {% if user.is_authenticated %}
+      <li>User: {{ user.get_username }}</li>
+      <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+    {% endif %}
   </ul>
   <div class="container">
     <div class="row">
