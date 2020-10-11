@@ -27,7 +27,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     'voice-marketplace.azurewebsites.net',
-    'www.voicemarketplace.online',
+    'www.voice-marketplace.online',
     '127.0.0.1',
 ]
 
