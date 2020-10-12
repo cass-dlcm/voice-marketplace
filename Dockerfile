@@ -20,9 +20,9 @@ RUN apt-get update \
         && apt-get clean \
         && rm -rf /var/lib/apt/lists/*
 
-COPY Pipfile /code/
 RUN pip install --upgrade pip && pip install pipenv
-RUN pipenv install
+COPY Pipfile /code/
+RUN pipenv install --verbose --skip-lock
 COPY . /code/
 
 COPY sshd_config /etc/ssh/

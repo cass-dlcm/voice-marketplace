@@ -45,6 +45,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'storages',
+    'django_otp',
+    'django_otp.plugins.otp_static',
+    'django_otp.plugins.otp_totp',
+    'otp_yubikey',
+    'django_agent_trust',
+    'django_user_agents',
 ]
 
 MIDDLEWARE = [
@@ -53,8 +59,11 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django_agent_trust.middleware.AgentMiddleware',
+    'django_otp.middleware.OTPMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_user_agents.middleware.UserAgentMiddleware',
 ]
 
 ROOT_URLCONF = 'voiceMarketplace.urls'
@@ -71,6 +80,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
+                'django_agent_trust.context_processors.agent',
             ],
         },
     },
@@ -89,7 +99,6 @@ DATABASES = {
         'USER': 'cass@voice-market-sql.database.windows.net',
         'PASSWORD': yaml.load(open('secrets.yaml', 'r'), Loader=yaml.FullLoader)['database_password'],
         'HOST': 'voice-market-sql.database.windows.net',
-        'PORT': '1433',
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',
         },
