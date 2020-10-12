@@ -9,5 +9,9 @@ echo database_password: $database_password >> secrets.yaml
 echo Ocp_Apim_Subscription_Key: $Ocp_Apim_Subscription_Key >> secrets.yaml
 echo storage_account_key: $storage_account_key >> secrets.yaml
 echo SENDGRID_API_KEY: $SENDGRID_API_KEY >> secrets.yaml
+echo HOST: $HOST >> secrets.yaml
+echo IKEY: $IKEY >> secrets.yaml
+echo AKEY: $AKEY >> secrets.yaml
+echo SKEY: $SKEY >> secrets.yaml
 
 pipenv run python /code/manage.py runserver 0.0.0.0:8000

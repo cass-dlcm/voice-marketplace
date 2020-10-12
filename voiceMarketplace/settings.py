@@ -45,12 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'storages',
-    'django_otp',
-    'django_otp.plugins.otp_static',
-    'django_otp.plugins.otp_totp',
-    'otp_yubikey',
-    'django_agent_trust',
     'django_user_agents',
+    'duo_auth',
 ]
 
 MIDDLEWARE = [
@@ -59,11 +55,10 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django_agent_trust.middleware.AgentMiddleware',
-    'django_otp.middleware.OTPMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_user_agents.middleware.UserAgentMiddleware',
+    'duo_auth.middleware.DuoAuthMiddleware',
 ]
 
 ROOT_URLCONF = 'voiceMarketplace.urls'
@@ -80,7 +75,6 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
-                'django_agent_trust.context_processors.agent',
             ],
         },
     },
@@ -156,6 +150,19 @@ MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
 SENDGRID_API_KEY = yaml.load(open('secrets.yaml', 'r'), Loader=yaml.FullLoader)['SENDGRID_API_KEY']
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 ADMINS = [('Cass', 'cassandra.delacruzmunoz@gmail.com')]
+MANAGERS = ADMINS
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 DEFAULT_FROM_EMAIL = "webmaster@voice-marketplace.online"
 SERVER_EMAIL = "root@voice-marketplace.online"
+
+DUO_CONFIG = {
+    'DEFAULT': {
+        'HOST': yaml.load(open('secrets.yaml', 'r'), Loader=yaml.FullLoader)['HOST'],
+        'IKEY': yaml.load(open('secrets.yaml', 'r'), Loader=yaml.FullLoader)['IKEY'],
+        'AKEY': yaml.load(open('secrets.yaml', 'r'), Loader=yaml.FullLoader)['AKEY'],
+        'SKEY': yaml.load(open('secrets.yaml', 'r'), Loader=yaml.FullLoader)['SKEY'],
+        'FIRST_STAGE_BACKENDS': [
+            'django.contrib.auth.backends.ModelBackend',
+        ]
+    }
+}
