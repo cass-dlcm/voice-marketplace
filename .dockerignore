@@ -1,0 +1,13 @@
+.azure
+.git
+static
+stylesheets_input
+.deepsource.toml
+.dockerignore
+.flake8
+.gitattributes
+.gitignore
+.pre-commit-config.yaml
+docker-compose.yml
+Dockerfile
+mypy.ini

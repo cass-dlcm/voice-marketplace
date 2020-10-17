@@ -8,6 +8,7 @@ verify_ssl = true
 [packages]
 azure-common = "*"
 azure-storage-blob = "==2.1.0"
+blackfire = "*"
 Django = ">=3.0.10,<3.1.0"
 django-duo-auth = "*"
 django-mssql-backend = "*"
@@ -15,9 +16,6 @@ django-sendgrid-v5 = "*"
 django-storages = "*"
 django-user-agents = "*"
 gunicorn = "*"
-PyYAML = "*"
-phonenumbers = "*"
-qrcode = "*"
 stripe = "*"
 
 [requires]

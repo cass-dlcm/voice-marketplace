@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-import yaml
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +20,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = yaml.load(open('/code/secrets.yaml', 'r'), Loader=yaml.FullLoader)['SECRET_KEY']
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.environ['DEBUG'] == "1"
 
 ALLOWED_HOSTS = [
     'voice-marketplace.azurewebsites.net',
@@ -50,6 +50,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'blackfire.middleware.DjangoMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -91,7 +92,7 @@ DATABASES = {
         'ENGINE': 'sql_server.pyodbc',
         'NAME': 'voicemarketrecordings',
         'USER': 'cass@voice-market-sql.database.windows.net',
-        'PASSWORD': yaml.load(open('secrets.yaml', 'r'), Loader=yaml.FullLoader)['database_password'],
+        'PASSWORD': os.environ['database_password'],
         'HOST': 'voice-market-sql.database.windows.net',
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',
@@ -147,7 +148,7 @@ AZURE_ACCOUNT_NAME = "voicemarketrecordings"
 AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
 STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
 MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
-SENDGRID_API_KEY = yaml.load(open('secrets.yaml', 'r'), Loader=yaml.FullLoader)['SENDGRID_API_KEY']
+SENDGRID_API_KEY = os.environ['SENDGRID_API_KEY']
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 ADMINS = [('Cass', 'cassandra.delacruzmunoz@gmail.com')]
 MANAGERS = ADMINS
@@ -157,10 +158,10 @@ SERVER_EMAIL = "root@voice-marketplace.online"
 
 DUO_CONFIG = {
     'DEFAULT': {
-        'HOST': yaml.load(open('secrets.yaml', 'r'), Loader=yaml.FullLoader)['HOST'],
-        'IKEY': yaml.load(open('secrets.yaml', 'r'), Loader=yaml.FullLoader)['IKEY'],
-        'AKEY': yaml.load(open('secrets.yaml', 'r'), Loader=yaml.FullLoader)['AKEY'],
-        'SKEY': yaml.load(open('secrets.yaml', 'r'), Loader=yaml.FullLoader)['SKEY'],
+        'HOST': os.environ['HOST'],
+        'IKEY': os.environ['IKEY'],
+        'AKEY': os.environ['AKEY'],
+        'SKEY': os.environ['SKEY'],
         'FIRST_STAGE_BACKENDS': [
             'django.contrib.auth.backends.ModelBackend',
         ]

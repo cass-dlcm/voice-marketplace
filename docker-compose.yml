@@ -1,16 +1,27 @@
 version: "3.8"
 services:
     web:
-        build: .
+        build:
+            context: .
+            args:
+                - BLACKFIRE_SERVER_ID
+                - BLACKFIRE_SERVER_TOKEN
+                - BLACKFIRE_CLIENT_ID
+                - BLACKFIRE_CLIENT_TOKEN
         ports:
             - "8000:8000"
         environment:
-            SECRET_KEY: ${SECRET_KEY}
-            database_password: ${database_password}
-            storage_account_key: ${storage_account_key}
-            Ocp_Apim_Subscription_Key: ${Ocp_Apim_Subscription_Key}
-            SENDGRID_API_KEY: ${SENDGRID_API_KEY}
-            HOST: ${HOST}
-            AKEY: ${AKEY}
-            SKEY: ${SKEY}
-            IKEY: ${IKEY}
+            SECRET_KEY: ~
+            database_password: ~
+            storage_account_key: ~
+            Ocp_Apim_Subscription_Key: ~
+            SENDGRID_API_KEY: ~
+            HOST: ~
+            AKEY: ~
+            SKEY: ~
+            IKEY: ~
+            BLACKFIRE_CLIENT_ID: ~
+            BLACKFIRE_CLIENT_TOKEN: ~
+            BLACKFIRE_SOCKET: ~
+            DJANGO_SETTINGS_MODULE: voiceMarketplace.settings
+            DEBUG: ~
