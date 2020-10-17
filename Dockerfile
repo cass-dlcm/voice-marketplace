@@ -14,15 +14,6 @@ RUN apt-get update \
         && apt-get clean \
         && rm -rf /var/lib/apt/lists/*
 
-ARG BLACKFIRE_SERVER_ID
-ARG BLACKFIRE_SERVER_TOKEN
-ARG BLACKFIRE_CLIENT_ID
-ARG BLACKFIRE_CLIENT_TOKEN
-
-RUN blackfire-agent --register --server-id="$BLACKFIRE_SERVER_ID" --server-token="$BLACKFIRE_SERVER_TOKEN" \
-        && /etc/init.d/blackfire-agent restart \
-        && blackfire config --client-id="$BLACKFIRE_CLIENT_ID" --client-token="$BLACKFIRE_CLIENT_TOKEN"
-
 # ssh
 ENV SSH_PASSWD "root:Docker!"
 RUN apt-get update \

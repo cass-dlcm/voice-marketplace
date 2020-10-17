@@ -3,11 +3,6 @@ services:
     web:
         build:
             context: .
-            args:
-                - BLACKFIRE_SERVER_ID
-                - BLACKFIRE_SERVER_TOKEN
-                - BLACKFIRE_CLIENT_ID
-                - BLACKFIRE_CLIENT_TOKEN
         ports:
             - "8000:8000"
         environment:
@@ -20,6 +15,8 @@ services:
             AKEY: ~
             SKEY: ~
             IKEY: ~
+            BLACKFIRE_SERVER_ID: ~
+            BLACKFIRE_SERVER_TOKEN: ~
             BLACKFIRE_CLIENT_ID: ~
             BLACKFIRE_CLIENT_TOKEN: ~
             BLACKFIRE_SOCKET: ~
